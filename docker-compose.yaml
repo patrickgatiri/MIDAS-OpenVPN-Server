@@ -1,0 +1,30 @@
+version: '3'
+services:
+  openvpn-server:
+    image: "alekslitvinenk/openvpn:v1.11.1"
+    container_name: openvpn-server
+    restart: always
+    mem_limit: 2G
+    environment:
+      - NET_ADAPTER=eth0
+      - HOST_ADDR=localhost
+      # Default OVPN port is 1194
+      - HOST_TUN_PORT=30884
+      # Default HTTP port is 80
+      - HOST_CONF_PORT=2323
+    volumes:
+      - $PWD/openvpn_conf:/opt/Dockovpn_data
+    networks:
+      - tools-net
+    ports:
+     - "30884:30884/udp"
+     - "2323:2323"
+
+networks:
+  # Custom network for isolation
+  tools-net:
+    name: tools-net
+    driver: bridge
+
+volumes:
+  openvpn_conf:
