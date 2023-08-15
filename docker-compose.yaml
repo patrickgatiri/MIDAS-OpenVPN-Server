@@ -19,7 +19,6 @@ services:
       - tools-net
     ports:
       - "32123:32123"
-      - "31221:31221"
 
 networks:
   # Custom network for isolation
