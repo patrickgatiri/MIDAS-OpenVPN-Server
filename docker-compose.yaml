@@ -12,13 +12,10 @@ services:
     networks:
       - tools-net
     ports:
-      - 1194:1194/udp
+      - "1194:1194/udp"
 
 networks:
   # Custom network for isolation
   tools-net:
     name: tools-net
     driver: bridge
-
-# volumes:
-#   openvpn_conf:
