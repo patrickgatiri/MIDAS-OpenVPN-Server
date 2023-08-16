@@ -1,24 +1,18 @@
 version: '3'
 services:
   openvpn-server:
-    image: "alekslitvinenk/openvpn:v1.11.1"
+    image: "kylemanna/openvpn:2.4"
     container_name: openvpn-server
     restart: always
     mem_limit: 2G
     cap_add:
       - NET_ADMIN
-    environment:
-      HOST_ADDR: "localhost"
-      # Default OVPN port is 1194
-      HOST_TUN_PORT: 32123
-      # Default HTTP port is 80
-      HOST_CONF_PORT: 31221
-    # volumes:
-    #   - $PWD/openvpn_conf:/opt/Dockovpn_data
+    volumes:
+      - $PWD/openvpn_data:/etc/openvpn:rw
     networks:
       - tools-net
     ports:
-      - "32123:32123"
+      - 1194:1194/udp
 
 networks:
   # Custom network for isolation
@@ -26,5 +20,5 @@ networks:
     name: tools-net
     driver: bridge
 
-volumes:
-  openvpn_conf:
+# volumes:
+#   openvpn_conf:
